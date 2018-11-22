@@ -18,7 +18,7 @@ Ideaal zou zijn dat de gebruikers zoveel mogelijk markers kan uitprinten om vers
 - De gebruiker kan uit zijn galerij een foto als puzzel selecteren  
 - De gebruiker kan uit een ingegeven zoekterm een foto selecteren uit meerdere gepresenteerde foto’s
 
-**User flow: **
+**User flow:**
 
 1. De gebruiker surft naar de mobiele webapplicatie.
 2. De gebruiker richt zijn camera op de Hiro Markers.
