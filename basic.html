@@ -7,6 +7,9 @@
 
 <!-- start the body of your page -->
 
+<script src="src/texture.js" charset="utf-8"></script>
+
+
 <body style='margin : 0px; overflow: hidden;'>
 	<!-- add some info at the top of the page -->
 	<div style='position: fixed; top: 10px; width:100%; text-align: center; z-index: 1;'>
@@ -15,20 +18,30 @@
 	</div>
 
 	<!-- Define your 3d scene and enabled ar.js -->
+
+
 	<a-scene embedded arjs='trackingMethod: best;'>
+
+		<!-- <a-marker-camera preset='custom' type='pattern' url='data/data/a.patt'></a-marker-camera> -->
+
+
+		<a-marker preset='custom' type='pattern' url='data/data/a.patt'>
+			<a-box position='0 0.5 0' material='opacity: 0.5; side: double;color:red;'>
+				<a-torus-knot radius='0.26' radius-tubular='0.05'>
+					<a-animation attribute="rotation" to="360 0 0" dur="5000" easing='linear' repeat="indefinite"></a-animation>
+				</a-torus-knot>
+			</a-box>
+		</a-marker>
+
+
 
 		<!-- Create a anchor to attach your augmented reality -->
 		<a-anchor hit-testing-enabled='true'>
 
 			<!-- Add your augmented reality here -->
 
-			<!-- <a-box position='0 0.5 0' material='opacity: 0.5; side:double; color:red;'>
-				<a-torus-knot radius='0.26' radius-tubular='0.05'>
-					<a-animation attribute="rotation" to="360 0 0" dur="5000" easing='linear' repeat="indefinite"></a-animation>
-				</a-torus-knot>
-			</a-box> -->
-
-			<a-plane position="0 0 0" rotation="-90 0 0" width="1" height="1" color="#74CEF5"></a-plane>
+			<!-- <a-plane position="0 0 0" rotation="-90 0 0" width="1" height="1" color="#74CEF5"></a-plane> -->
+			<a-image-part/>
 
 
 		</a-anchor>
@@ -37,4 +50,5 @@
 		<a-camera-static/>
 
 	</a-scene>
+
 </body>
