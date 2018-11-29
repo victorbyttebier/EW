@@ -9,12 +9,12 @@
 	<a-scene embedded arjs='trackingMethod: best;'>
 
 		<!-- Create a anchor to attach your augmented reality -->
-		<a-anchor hit-testing-enabled='true'>
-			<a-plane position="0 0 0" rotation="-90 0 0" width="1" height="1" color="#74CEF5"></a-plane>
-		</a-anchor>
-
-		<!-- Define a static camera -->
-		<a-camera-static/>
-
+		<a-assets>
+			<a-assets>
+				<img id="transpImage" src="assets/goat.jpg">
+			</a-assets>
+		</a-assets>
+		<a-image width="1" height="1" src="#transpImage" position="0 0 0" rotation="-90 0 0" width="1" height="1"></a-image>
+    	<a-marker-camera preset='hiro'></a-marker-camera>
 	</a-scene>
 </body>
