@@ -1,0 +1,36 @@
+
+<body>
+	<canvas id="canvas" width="480" height="480"></canvas>
+	<a-scene embedded arjs='trackingMethod: best; detectionMode: mono_and_matrix; matrixCodeType: 3x3;' registerevents>
+	<a-marker preset="custom" type='pattern' url='data/data/a.patt'>
+		<a-image width="1" height="1" src="#dogImage" position="0 1 0" rotation="-90 0 0" width="1" height="1"></a-image>
+		<img id="dogImage" src="assets/dog.jpg">
+	</a-marker>
+	<!--
+	<a-marker type='barcode' value='7'>
+		<a-box position='0 0.5 0' material='opacity: 0.8; side: double;color:pink;'>
+			<a-image width="1" height="1" src="#dogImage" position="0 1 0" rotation="-90 0 0" width="1" height="1"></a-image>
+			<img id="dogImage" src="assets/dog.jpg">
+		</a-box>
+	</a-marker>
+	<a-marker type='barcode' value='6'>
+		<a-box position='0 0.5 0' material='opacity: 0.8; side: double;color:green;'>
+			<a-image width="1" height="1" src="#alpacaImage" position="0 1 0" rotation="-90 0 0" width="1" height="1"></a-image>
+			<img id="alpacaImage" src="assets/alpaca.jpeg">
+		</a-box>
+	</a-marker>
+		<a-marker type='barcode' value='5'>
+			<a-box position='0 0.5 0' material='opacity: 0.8; side: double;color:red;'>
+				<a-image width="1" height="1" src="#cowImage" position="0 1 0" rotation="-90 0 0" width="1" height="1"></a-image>
+				<img id="cowImage" src="assets/cow-bycycle.jpg">
+			</a-box>
+		</a-marker>
+		<a-marker type='barcode' value='4'>
+			<a-box position='0 0.5 0' material='opacity: 0.6; side: double;color:blue;'>
+				<a-image width="1" height="1" src="#goatImage" position="0 1 0" rotation="-90 0 0" width="1" height="1"></a-image>
+				<img id="goatImage" src="assets/goat.jpg">
+			</a-box>
+		</a-marker>
+		<a-marker-camera preset='hiro'></a-marker-camera>-->
+	</a-scene>
+</body>
