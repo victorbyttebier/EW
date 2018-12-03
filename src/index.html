@@ -9,7 +9,6 @@
 	<script src="js/build/aframe-ar.js"></script>
 </head>
 <body>
-	<canvas style="margin:20% 20%;" id="canvas" width="480" height="480"></canvas>
 	<a-scene embedded arjs='trackingMethod: best; detectionMode: mono_and_matrix; matrixCodeType: 3x3;' registerevents>
 		<a-marker type='barcode' value='7'>
 			<a-box position='0 0.5 0' material='opacity: 0.8; side: double;color:blue;'>
@@ -19,6 +18,7 @@
 		</a-marker>
 		<a-marker-camera preset='hiro'></a-marker-camera>
 	</a-scene>
+	<script src="js/script.js"></script>
 	<script src="js/shuffle.js"></script>
 </body>
 </html>
