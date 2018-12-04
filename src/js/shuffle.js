@@ -6,8 +6,8 @@
         tileCount = 3,
         tileSize = boardSize / tileCount;
 
-  let boardParts, tile = 0;
-  let canvas = [], ctx = [], imageData = [];
+  let boardParts, x, y, tile = 0;
+  let canvas = [], imageData = [];
 
   const init = () => {
     const image = new Image();
@@ -20,8 +20,9 @@
 
   const createTileImage = (image, {imgdata}) => {
     const {x, y, i, j} = imgdata;
-    // ctx[tile]
-    //   .drawImage(image, x * tileSize, y * tileSize, tileSize, tileSize,i * tileSize, j * tileSize, tileSize, tileSize);
+    //drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
+    //.drawImage(image, x * tileSize, y * tileSize, tileSize, tileSize,i * tileSize, j * tileSize, tileSize, tileSize);
+    canvas[tile].getContext("2d").drawImage(image,0,0);
   };
 
   const createCanvas = tile => {
@@ -29,9 +30,8 @@
     //Waarom nieuwe canvas per tile = image conversie -> https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toDataURL
     canvas[tile] = document.createElement(`canvas`)
     canvas[tile].setAttribute(`data-tile`, `${tile}`);
-    canvas[tile].setAttribute(`width`, boardSize);
-    canvas[tile].setAttribute(`height`, boardSize);
-    ctx[tile] = canvas[tile].getContext('2d');
+    canvas[tile].setAttribute(`width`, tileSize);
+    canvas[tile].setAttribute(`height`, tileSize);
     document.querySelector(`a-scene`).appendChild(canvas[tile]);
   };
 
@@ -42,17 +42,15 @@
 
           let x = boardParts[i][j].x;
           let y = boardParts[i][j].y;
-          //drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
-          ctx[0].drawImage(image, 0,0);
-          ctx[1].drawImage(image, 0,0);
-          //ctx[1].drawImage(image, x * tileSize, y * tileSize, tileSize, tileSize,i * tileSize, j * tileSize, tileSize, tileSize);
-          // imageData[tile] = {imgdata: {x,y, i, j}};
-          // createTileImage(image, imageData[tile]);
+          imageData[tile] = {imgdata: {x,y, i, j}};
+          createTileImage(image,imageData[tile]);
 
           tile++;
       }
     }
-
+    //canvas[tile].getContext("2d").drawImage(image, x * tileSize, y * tileSize, tileSize, tileSize,i * tileSize, j * tileSize, tileSize, tileSize);
+    //canvas[0].getContext("2d").drawImage(image, 2* tileSize, 1* tileSize, tileSize, tileSize, 0 * tileSize, 1* tileSize, tileSize, tileSize);
+    //canvas[1].getContext("2d").drawImage(image, 0, 0);
   };
 
   const setBoard = () => {
