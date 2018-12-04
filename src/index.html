@@ -11,10 +11,8 @@
 <body>
 	<a-scene embedded arjs='trackingMethod: best; detectionMode: mono_and_matrix; matrixCodeType: 3x3;' registerevents>
 		<a-marker type='barcode' value='7'>
-			<a-box position='0 0.5 0' material='opacity: 0.8; side: double;color:blue;'>
-				<a-image width="1" height="1" src="#dogImage" position="0 1 0" rotation="-90 0 0" width="1" height="1"></a-image>
-				<img id="dogImage" src="assets/dog.jpg">
-			</a-box>
+			<a-image width="1" height="1" src="#dogImage" position="0 0 0" rotation="-90 0 0" width="1" height="1"></a-image>
+			<img id="dogImage" src="assets/dog.jpg">
 		</a-marker>
 		<a-marker-camera preset='hiro'></a-marker-camera>
 	</a-scene>
