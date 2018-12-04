@@ -21,6 +21,7 @@ exports.extractCSS = () => {
     };
 }
 
+
 exports.loadCSS = () => ({
     module: {
       rules: [

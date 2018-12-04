@@ -1,0 +1,20 @@
+html {
+  box-sizing: border;
+  font-size: 62.5%;
+  height: 100%;
+}
+
+*, *:before, *:after { /* stylelint-disable-line */
+  box-sizing: inherit;
+}
+
+canvas {
+  margin-top: 50vh;
+}
+/* canvas[data-tile='0'] {
+  margin-top: 300px;
+}
+
+canvas[data-tile='1'] {
+  margin-top: 300px;
+} */
