@@ -1,3 +1,4 @@
+//import { parts } from './parts.js';
 AFRAME.registerComponent('image-part', {
 
     init: function () {
@@ -9,6 +10,8 @@ AFRAME.registerComponent('image-part', {
         const material = new THREE.MeshLambertMaterial({
             //map: loader.load('https://source.unsplash.com/random')
             map: loader.load('../assets/goat.jpg')
+
+            // map: loader.load(parts[1])
 
         });
 

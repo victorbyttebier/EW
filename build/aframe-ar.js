@@ -8306,7 +8306,7 @@ AFRAME.registerComponent('arjs-anchor', {
 				markerParameters.type = _this.data.type
 				markerParameters.patternUrl = _this.data.patternUrl;
 				markerParameters.markersAreaEnabled = false
-			}else if( _this.data.preset === 'custom' ){ 
+			}else if( _this.data.preset === 'a' ){ 
 				arProfile.defaultMarkerParameters.type = 'pattern' 
 				arProfile.defaultMarkerParameters.patternUrl = _this.data.patternUrl; 
 				arProfile.defaultMarkerParameters.markersAreaEnabled = false;
