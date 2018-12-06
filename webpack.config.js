@@ -1,11 +1,9 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
-const ImageminPlugin = require('imagemin-webpack-plugin').default
-const imageminJpegRecompress = require('imagemin-jpeg-recompress');
-
 const merge = require("webpack-merge");
 const parts = require("./webpack.parts");
+const nodeExternals = require('webpack-node-externals')
 
 //const port = 3000;
 
@@ -18,8 +16,7 @@ const commonConfig = merge([
   {
     entry: [path.join(PATHS.src, "css/style.css"), path.join(PATHS.src, "js/shuffle.js")],
     output: {
-      path: PATHS.dist,
-      filename: `js/script.[hash].js`
+      path: PATHS.dist, filename: `js/script.[hash].js`,
     },
     module: {
       rules: [
@@ -43,27 +40,7 @@ const commonConfig = merge([
                 context: `./src`,
                 name: `[path][name].[ext]`
               }
-            }, {
-              loader: `image-webpack-loader`,
-              options: {
-                bypassOnDebug: true,
-                mozjpeg: {
-                  progressive: true,
-                  quality: 65
-                },
-                // optipng.enabled: false will disable optipng
-                optipng: {
-                  enabled: false,
-                },
-                pngquant: {
-                  quality: '65-90',
-                  speed: 4
-                },
-                gifsicle: {
-                  interlaced: false,
-                }
-              },
-            },
+            }
           ]
         },
         {
@@ -84,14 +61,7 @@ const commonConfig = merge([
 const productionConfig = merge([
   parts.extractCSS(),
   {
-    plugins: [
-      new ImageminPlugin({
-        test: /\.(jpe?g)$/i,
-        plugins: [
-          imageminJpegRecompress({})
-        ]
-      })
-    ]
+    plugins: []
   }
 ]);
 

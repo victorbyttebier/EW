@@ -10,7 +10,7 @@
     height: 1,
   }
 
-  let boardParts, tile = 0;
+  let boardParts, tile = 0, solved = false;
   let canvas = [], imageData = [], images = [];
 
   const init = () => {
@@ -20,7 +20,26 @@
     image.height = boardSize;
     image.addEventListener('load', () => createTiles(image));
     setBoard();
+    setInterval(() => checkSolved(), 1000);
   }
+
+  const checkSolved = () => {
+    let flag = true;
+    for (let i = 0; i < tileCount; ++i) {
+      for (let j = 0; j < tileCount; ++j) {
+        if (boardParts[i][j].x != i || boardParts[i][j].y != j) {
+          flag = false;
+        }
+      }
+    }
+    solved = flag;
+    if (solved) {
+      setTimeout(function() {alert("You solved it!");}, 500);
+    }else {
+      console.log(`not solved`);
+    }
+  };
+
 
   const createTileImage = (image, {imgdata}) => {
     const {x, y} = imgdata;
@@ -74,6 +93,7 @@
         boardParts[i][j].y = (tileCount - 1) - j;
       }
     }
+    solved = false;
   };
 
   init();

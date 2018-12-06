@@ -12,7 +12,7 @@ exports.extractCSS = () => {
           {
             test: /\.css$/,
             use: extractCSS.extract({
-              use: [ `css-loader`, 'postcss-loader'],
+              use: [ `css-loader`],
               publicPath: '../'
             })
           }
@@ -30,7 +30,6 @@ exports.loadCSS = () => ({
           use:[
             'style-loader',
             'css-loader',
-            'postcss-loader',
           ],
         }
       ]
