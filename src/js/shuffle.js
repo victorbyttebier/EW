@@ -37,13 +37,15 @@
     }
 
     for (let i = 0; i < numRowsToCut; ++i) {
+      //door de randomArray weten we welke stukken waar zijn geplaatst daardoor weten we ook welke langst elkaar horen te liggen
+      //eerst checken we of de rijen in de juste positie staan maar dan moeten we ook nog zien of de columns in de juste orde staan
       if (Math.abs(positionMarkers[randomArray[0 + (3 * i)]].position.x - positionMarkers[randomArray[1 + (3 * i)]].position.x) < tolerantie && Math.abs(positionMarkers[randomArray[1 + (3 * i)]].position.x - positionMarkers[randomArray[2 + (3 * i)]].position.x) < tolerantie) {
         controle[i] = true;
       } else {
         controle[i] = false;
       }
     }
-
+    // hier checken we de culumns
     for (let i = 0; i < numColsToCut; ++i) {
       if (Math.abs(positionMarkers[randomArray[i]].position.y - positionMarkers[randomArray[3 + i]].position.y) < tolerantie && Math.abs(positionMarkers[randomArray[3 + i]].position.y - positionMarkers[randomArray[6 + i]].position.y) < tolerantie) {
         controle[3 + i] = true;
