@@ -1,44 +1,29 @@
 {
-  const boardSize = 480,
-    tileCount = 3,
-    tileSize = boardSize / tileCount;
-
   const markers = document.querySelectorAll(`a-marker`);
 
-  const imgSettings = {
-    width: 1,
-    height: 1,
-  }
+  let parts = new Array(9),
+    randomArray = ['0', '1', '2', '3', '4', '5', '6', '7', '8'];;
+  const numColsToCut = 3,
+    numRowsToCut = 3,
+    puzzel = numColsToCut * numRowsToCut - 1;
+  let stukken = numColsToCut * numRowsToCut - 1;
+
+
 
 
   let positionMarkers = [];
-  let boardParts, tile = 0;
-  let canvas = [], imageData = [], images = [];
 
   const init = () => {
+    //shuffle(randomArray);
     const image = new Image();
     image.src = '../assets/dog.jpg';
-    image.width = boardSize;
-    image.height = boardSize;
-    image.addEventListener('load', () => createTiles(image));
-    setBoard();
+    image.addEventListener('load', () => splitImage(image));
     setInterval(() => checkDistance(), 1000);
+    console.log(randomArray);
 
 
-    // markers[0].addEventListener('markerFound', function () {
-    //   positionMarkers[0] = markers[0].object3D;
 
-    //   console.log('markerFound 1');
-    //   console.log(positionMarkers[0]);
 
-    // });
-
-    // markers[1].addEventListener('markerFound', function () {
-    //   positionMarkers[1] = markers[1].object3D;
-
-    //   console.log('markerFound 2');
-    //   setInterval(() => checkDistance(), 3000);
-    // });
   }
 
   const checkDistance = () => {
@@ -50,13 +35,11 @@
 
     //console.log(images[0]);
 
-    console.log(markers[5]);
-    console.log(markers[8]);
+    console.log('position x', positionMarkers[randomArray[1]].position.x - positionMarkers[randomArray[0]].position.x);
+    console.log('position y', positionMarkers[randomArray[1]].position.y - positionMarkers[randomArray[0]].position.y);
+    console.log('position x2', positionMarkers[randomArray[2]].position.x - positionMarkers[randomArray[1]].position.x);
+    console.log('position y2', positionMarkers[randomArray[2]].position.y - positionMarkers[randomArray[1]].position.y);
 
-
-    // console.log('position x', positionMarkers[1].position.x - positionMarkers[0].position.x);
-    // console.log('position y', positionMarkers[1].position.y - positionMarkers[0].position.y);
-    // console.log('position z', positionMarkers[1].position.z - positionMarkers[0].position.z);
 
 
     // console.log('rotation x', positionMarkers[1].rotation.x - positionMarkers[0].rotation.x);
@@ -64,63 +47,48 @@
     // console.log('rotation z', positionMarkers[1].rotation.z - positionMarkers[0].rotation.z);
   }
 
+  const splitImage = (image) => {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const partWidth = image.width / numColsToCut;
+    const partHeight = image.height / numRowsToCut;
 
 
+    for (let x = 0; x < numColsToCut; ++x) {
+      for (let y = 0; y < numRowsToCut; ++y) {
+        canvas.width = partWidth;
+        canvas.height = partHeight;
+        ctx.drawImage(image, x * partWidth, y * partHeight, partWidth, partHeight, 0, 0, canvas.width, canvas.height);
+        parts[8 - stukken] = (canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"));
 
-  const createTileImage = (image, { imgdata }) => {
-    const { x, y } = imgdata;
-    canvas[tile].getContext("2d").drawImage(image, x * tileSize, y * tileSize, tileSize, tileSize, 0, 0, tileSize, tileSize);
-    images[tile] = canvas[tile].toDataURL("image/png").replace("image/png", "image/octet-stream");
-
-    markers.forEach((m, i) => {
-      if (i === tile) {
-        const aImg = document.createElement(`a-image`);
-
-        aImg.setAttribute(`width`, imgSettings.width);
-        aImg.setAttribute(`height`, imgSettings.height);
-        aImg.setAttribute(`rotation`, `-90 0 0`);
-        aImg.setAttribute(`src`, images[i]);
-        //aImg.setAttribute(`data-tile`, `${tile}`);
-
-        m.appendChild(aImg);
+        stukken = stukken - 3;
+        if (stukken < 0) {
+          stukken = puzzel + stukken;
+        }
       }
+    }
+
+
+    markers.forEach((marker, i) => {
+      const aImg = document.createElement(`a-image`);
+
+      aImg.setAttribute(`rotation`, `-90 0 0`);
+      aImg.setAttribute(`src`, parts[randomArray[i]]);
+
+      marker.appendChild(aImg);
+
     })
+  }
 
-  };
-
-  const createCanvas = tile => {
-    canvas[tile] = document.createElement(`canvas`)
-    canvas[tile].setAttribute(`data-tile`, `${tile}`);
-    canvas[tile].setAttribute(`width`, tileSize);
-    canvas[tile].setAttribute(`height`, tileSize);
-  };
-
-  const createTiles = image => {
-    for (let i = 0; i < tileCount; ++i) {
-      for (let j = 0; j < tileCount; ++j) {
-        createCanvas(tile);
-
-        let x = boardParts[i][j].x;
-        let y = boardParts[i][j].y;
-        imageData[tile] = { imgdata: { x, y } };
-        createTileImage(image, imageData[tile]);
-
-        tile++;
-      }
+  function shuffle(randomArray) {
+    for (let i = randomArray.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [randomArray[i], randomArray[j]] = [randomArray[j], randomArray[i]];
     }
-  };
+    return randomArray;
+  }
 
-  const setBoard = () => {
-    boardParts = new Array(tileCount);
-    for (let i = 0; i < tileCount; ++i) {
-      boardParts[i] = new Array(tileCount);
-      for (let j = 0; j < tileCount; ++j) {
-        boardParts[i][j] = {};
-        boardParts[i][j].x = (tileCount - 1) - i;
-        boardParts[i][j].y = (tileCount - 1) - j;
-      }
-    }
-  };
+
 
   init();
 }
