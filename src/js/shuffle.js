@@ -11,10 +11,6 @@
 
   let controle = new Array(6);
 
-
-
-
-
   let positionMarkers = [];
 
   const init = () => {
@@ -39,7 +35,9 @@
     for (let i = 0; i < numRowsToCut; ++i) {
       //door de randomArray weten we welke stukken waar zijn geplaatst daardoor weten we ook welke langst elkaar horen te liggen
       //eerst checken we of de rijen in de juste positie staan maar dan moeten we ook nog zien of de columns in de juste orde staan
-      if (Math.abs(positionMarkers[randomArray[0 + (3 * i)]].position.x - positionMarkers[randomArray[1 + (3 * i)]].position.x) < tolerantie && Math.abs(positionMarkers[randomArray[1 + (3 * i)]].position.x - positionMarkers[randomArray[2 + (3 * i)]].position.x) < tolerantie) {
+      //de tweede lijn in de if state is voor de rotatie te zien ten opzichte van elkaar
+      if (Math.abs(positionMarkers[randomArray[0 + (3 * i)]].position.x - positionMarkers[randomArray[1 + (3 * i)]].position.x) < tolerantie && Math.abs(positionMarkers[randomArray[1 + (3 * i)]].position.x - positionMarkers[randomArray[2 + (3 * i)]].position.x) < tolerantie
+        && Math.abs(positionMarkers[randomArray[0 + (3 * i)]].rotation.x - positionMarkers[randomArray[1 + (3 * i)]].rotation.x) < tolerantie && Math.abs(positionMarkers[randomArray[1 + (3 * i)]].rotation.x - positionMarkers[randomArray[2 + (3 * i)]].rotation.x) < tolerantie) {
         controle[i] = true;
       } else {
         controle[i] = false;
@@ -47,7 +45,8 @@
     }
     // hier checken we de culumns
     for (let i = 0; i < numColsToCut; ++i) {
-      if (Math.abs(positionMarkers[randomArray[i]].position.y - positionMarkers[randomArray[3 + i]].position.y) < tolerantie && Math.abs(positionMarkers[randomArray[3 + i]].position.y - positionMarkers[randomArray[6 + i]].position.y) < tolerantie) {
+      if (Math.abs(positionMarkers[randomArray[i]].position.y - positionMarkers[randomArray[3 + i]].position.y) < tolerantie && Math.abs(positionMarkers[randomArray[3 + i]].position.y - positionMarkers[randomArray[6 + i]].position.y) < tolerantie
+        && Math.abs(positionMarkers[randomArray[i]].rotation.y - positionMarkers[randomArray[3 + i]].rotation.y) < tolerantie && Math.abs(positionMarkers[randomArray[3 + i]].rotation.y - positionMarkers[randomArray[6 + i]].rotation.y) < tolerantie) {
         controle[3 + i] = true;
       } else {
         controle[3 + i] = false;
@@ -58,7 +57,7 @@
     // console.log('sub', positionMarkers[randomArray[0]].position.x - positionMarkers[randomArray[1]].position.x);
 
 
-    // console.log('controle', controle);
+    console.log('controle', controle);
 
 
 
