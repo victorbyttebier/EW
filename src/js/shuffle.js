@@ -18,54 +18,58 @@
     const image = new Image();
     image.src = '../assets/dog.jpg';
     image.addEventListener('load', () => splitImage(image));
-    setInterval(() => checkDistance(), 1000);
-    console.log(randomArray);
 
+    console.log(randomArray);
+    console.log(positionMarkers);
+
+    setInterval(() => checkDistance(), 1000);
 
 
 
   }
 
+
   const checkDistance = () => {
 
     for (let i = 0; i < markers.length; ++i) {
       positionMarkers[i] = markers[i].object3D;
-    }
 
-    for (let i = 0; i < numRowsToCut; ++i) {
-      //door de randomArray weten we welke stukken waar zijn geplaatst daardoor weten we ook welke langst elkaar horen te liggen
-      //eerst checken we of de rijen in de juste positie staan maar dan moeten we ook nog zien of de columns in de juste orde staan
-      //de tweede lijn in de if state is voor de rotatie te zien ten opzichte van elkaar
-      if (Math.abs(positionMarkers[randomArray[0 + (3 * i)]].position.x - positionMarkers[randomArray[1 + (3 * i)]].position.x) < tolerantie && Math.abs(positionMarkers[randomArray[1 + (3 * i)]].position.x - positionMarkers[randomArray[2 + (3 * i)]].position.x) < tolerantie
-        && Math.abs(positionMarkers[randomArray[0 + (3 * i)]].rotation.x - positionMarkers[randomArray[1 + (3 * i)]].rotation.x) < tolerantie && Math.abs(positionMarkers[randomArray[1 + (3 * i)]].rotation.x - positionMarkers[randomArray[2 + (3 * i)]].rotation.x) < tolerantie) {
-        controle[i] = true;
-      } else {
-        controle[i] = false;
+    }
+    //deze if zorgt ervoor dat er zeker 2 markers moeten ingeladen zijn voor je gaat checken dit zorgt ervoor dat je markers al een waarde hebben vooraleer je de tolerantie gaat bereken 0-0 < tolerantie
+    if (positionMarkers[randomArray[0]].position.x - positionMarkers[randomArray[8]].position.x !== 0) {
+      for (let i = 0; i < numRowsToCut; ++i) {
+        //door de randomArray weten we welke stukken waar zijn geplaatst daardoor weten we ook welke langst elkaar horen te liggen
+        //eerst checken we of de rijen in de juste positie staan maar dan moeten we ook nog zien of de columns in de juste orde staan
+        //de tweede lijn in de if state is voor de rotatie te zien ten opzichte van elkaar
+        if (Math.abs(positionMarkers[randomArray[0 + (3 * i)]].position.x - positionMarkers[randomArray[1 + (3 * i)]].position.x) < tolerantie && Math.abs(positionMarkers[randomArray[1 + (3 * i)]].position.x - positionMarkers[randomArray[2 + (3 * i)]].position.x) < tolerantie
+          && Math.abs(positionMarkers[randomArray[0 + (3 * i)]].rotation.x - positionMarkers[randomArray[1 + (3 * i)]].rotation.x) < tolerantie && Math.abs(positionMarkers[randomArray[1 + (3 * i)]].rotation.x - positionMarkers[randomArray[2 + (3 * i)]].rotation.x) < tolerantie) {
+          controle[i] = true;
+        } else {
+          controle[i] = false;
+        }
+      }
+
+      // hier checken we de culumns
+      for (let i = 0; i < numColsToCut; ++i) {
+        if (Math.abs(positionMarkers[randomArray[i]].position.y - positionMarkers[randomArray[3 + i]].position.y) < tolerantie && Math.abs(positionMarkers[randomArray[3 + i]].position.y - positionMarkers[randomArray[6 + i]].position.y) < tolerantie
+          && Math.abs(positionMarkers[randomArray[i]].rotation.y - positionMarkers[randomArray[3 + i]].rotation.y) < tolerantie && Math.abs(positionMarkers[randomArray[3 + i]].rotation.y - positionMarkers[randomArray[6 + i]].rotation.y) < tolerantie) {
+          controle[3 + i] = true;
+        } else {
+          controle[3 + i] = false;
+        }
+      }
+      //console.log('controle', controle);
+      //als alle rijen en collomen true zijn dan heb je de puzzel opgelost!
+      if (controle.every(checkArray)) {
+        console.log('SOLVED!!!!!!!');
+
       }
     }
-    // hier checken we de culumns
-    for (let i = 0; i < numColsToCut; ++i) {
-      if (Math.abs(positionMarkers[randomArray[i]].position.y - positionMarkers[randomArray[3 + i]].position.y) < tolerantie && Math.abs(positionMarkers[randomArray[3 + i]].position.y - positionMarkers[randomArray[6 + i]].position.y) < tolerantie
-        && Math.abs(positionMarkers[randomArray[i]].rotation.y - positionMarkers[randomArray[3 + i]].rotation.y) < tolerantie && Math.abs(positionMarkers[randomArray[3 + i]].rotation.y - positionMarkers[randomArray[6 + i]].rotation.y) < tolerantie) {
-        controle[3 + i] = true;
-      } else {
-        controle[3 + i] = false;
-      }
-    }
-    // console.log('poistie', positionMarkers[randomArray[0]].position.x);
-    // console.log('poistie2', positionMarkers[randomArray[1]].position.x);
-    // console.log('sub', positionMarkers[randomArray[0]].position.x - positionMarkers[randomArray[1]].position.x);
+  }
 
+  function checkArray(check) {
 
-    console.log('controle', controle);
-
-
-
-
-
-    console.log('rotation x', positionMarkers[1].rotation.x - positionMarkers[0].rotation.x);
-    console.log('rotation y', positionMarkers[1].rotation.y - positionMarkers[0].rotation.y);
-    console.log('rotation z', positionMarkers[1].rotation.z - positionMarkers[0].rotation.z);
+    return check == true;
   }
 
   const splitImage = (image) => {
