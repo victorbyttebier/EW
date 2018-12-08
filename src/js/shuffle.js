@@ -12,7 +12,7 @@
 
 
   let positionMarkers = [];
-  let boardParts, tile = 0, solved = false;
+  let boardParts, tile = 0;
   let canvas = [], imageData = [], images = [];
 
   const init = () => {
@@ -22,65 +22,49 @@
     image.height = boardSize;
     image.addEventListener('load', () => createTiles(image));
     setBoard();
-    //setInterval(() => checkSolved(), 1000);
+    setInterval(() => checkDistance(), 1000);
 
 
+    // markers[0].addEventListener('markerFound', function () {
+    //   positionMarkers[0] = markers[0].object3D;
 
+    //   console.log('markerFound 1');
+    //   console.log(positionMarkers[0]);
 
+    // });
 
+    // markers[1].addEventListener('markerFound', function () {
+    //   positionMarkers[1] = markers[1].object3D;
 
-
-
-
-
-
-
-
-
-    markers[0].addEventListener('markerFound', function () {
-      positionMarkers[0] = markers[0].object3D;
-
-      console.log('markerFound 1');
-      console.log(positionMarkers[0]);
-
-    });
-
-    markers[1].addEventListener('markerFound', function () {
-      positionMarkers[1] = markers[1].object3D;
-
-      console.log('markerFound 2');
-      setInterval(() => checkDistance(), 1000);
-    });
+    //   console.log('markerFound 2');
+    //   setInterval(() => checkDistance(), 3000);
+    // });
   }
 
   const checkDistance = () => {
-    console.log('position x', positionMarkers[1].position.x - positionMarkers[0].position.x);
-    console.log('position y', positionMarkers[1].position.y - positionMarkers[0].position.y);
-    console.log('position z', positionMarkers[1].position.z - positionMarkers[0].position.z);
 
-    //   console.log('rotation x', positionMarkers[1].rotation.x - positionMarkers[0].rotation.x);
-    //   console.log('rotation y', positionMarkers[1].rotation.y - positionMarkers[0].rotation.y);
-    //   console.log('rotation z', positionMarkers[1].rotation.z - positionMarkers[0].rotation.z);
+    for (let i = 0; i < markers.length; ++i) {
+      positionMarkers[i] = markers[i].object3D;
+
+    }
+
+    //console.log(images[0]);
+
+    console.log(markers[5]);
+    console.log(markers[8]);
+
+
+    // console.log('position x', positionMarkers[1].position.x - positionMarkers[0].position.x);
+    // console.log('position y', positionMarkers[1].position.y - positionMarkers[0].position.y);
+    // console.log('position z', positionMarkers[1].position.z - positionMarkers[0].position.z);
+
+
+    // console.log('rotation x', positionMarkers[1].rotation.x - positionMarkers[0].rotation.x);
+    // console.log('rotation y', positionMarkers[1].rotation.y - positionMarkers[0].rotation.y);
+    // console.log('rotation z', positionMarkers[1].rotation.z - positionMarkers[0].rotation.z);
   }
 
 
-
-  // const checkSolved = () => {
-  //   let flag = true;
-  //   for (let i = 0; i < tileCount; ++i) {
-  //     for (let j = 0; j < tileCount; ++j) {
-  //       if (boardParts[i][j].x != i || boardParts[i][j].y != j) {
-  //         flag = false;
-  //       }
-  //     }
-  //   }
-  //   solved = flag;
-  //   if (solved) {
-  //     setTimeout(function () { alert("You solved it!"); }, 500);
-  //   } else {
-  //     console.log(`not solved`);
-  //   }
-  // };
 
 
   const createTileImage = (image, { imgdata }) => {
@@ -96,6 +80,7 @@
         aImg.setAttribute(`height`, imgSettings.height);
         aImg.setAttribute(`rotation`, `-90 0 0`);
         aImg.setAttribute(`src`, images[i]);
+        //aImg.setAttribute(`data-tile`, `${tile}`);
 
         m.appendChild(aImg);
       }
@@ -135,7 +120,6 @@
         boardParts[i][j].y = (tileCount - 1) - j;
       }
     }
-    solved = false;
   };
 
   init();
