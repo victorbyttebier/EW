@@ -8,8 +8,8 @@ html {
   box-sizing: inherit;
 }
 
-canvas[data-tile='0'] {
-  margin-top: 300px;
+.hidden {
+  display: none;
 }
 
 .download {

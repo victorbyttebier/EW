@@ -1,7 +1,12 @@
 {
+  const image = new Image(),
+        video = document.querySelector('video'),
+        canvas = document.createElement(`canvas`),
+        takePhotoButton = document.querySelector('button#takePhoto');
 
-  const markers = document.querySelectorAll(`a-marker`);
+  let constraints, imageCapture, mediaStream;
 
+<<<<<<< HEAD
   const numCol = 3, numRow = 3,
     puzzlePieces = numCol * numRow,
     tolerance = 1.9;
@@ -10,19 +15,67 @@
     puzzle = [...Array(puzzlePieces).keys()].map(String),
     positionMarkers = [],
     check = new Array(6);
+=======
+  // Puzzle Vars
+  const markers = document.querySelectorAll(`a-marker`),
+        numCol = 3, numRow = 3,
+        puzzlePieces = numCol * numRow,
+        tolerance = 1.9;
 
-  let pieces = numCol * numRow - 1;
+  let imgPieces = new Array(puzzlePieces),
+      puzzle = [...Array(puzzlePieces).keys()].map(String),
+      pieces = numCol * numRow - 1,
+      positionMarkers = [],
+      check = new Array(6);
+>>>>>>> 969014caeb23ad1d6a4fd3767b70767c510d8124
 
   const init = () => {
-    shuffle(puzzle);
-    const image = new Image();
-    image.src = '../assets/dog.jpg';
-    image.addEventListener('load', () => createImagePieces(image));
-    setInterval(() => checkDistance(), 1000);
+    navigator.mediaDevices.enumerateDevices()
+      .catch(error => console.log('enumerateDevices() error: ', error))
+      .then(getStream);
+
+    takePhotoButton.addEventListener(`click`, getPicture);
+    //shuffle(puzzle);
+    //setInterval(() => checkDistance(), 1000);
   }
 
+  // Camera ---------------------------------------------------------------
+  const getStream = () => {
+    if (mediaStream) {
+      mediaStream.getTracks().forEach(track => track.stop());
+    }
+
+    constraints = {
+      video: true
+    };
+
+    navigator.mediaDevices.getUserMedia(constraints)
+      .then(gotStream)
+      .catch(error => {
+        console.log('getUserMedia error: ', error);
+      });
+  }
+
+  const gotStream = stream => {
+    mediaStream = stream;
+    video.srcObject = stream;
+    video.classList.remove('hidden');
+    imageCapture = new ImageCapture(stream.getVideoTracks()[0]);
+  };
+
+  const getPicture = () => {
+    imageCapture.takePhoto()
+      .then((img) => {
+        image.src = URL.createObjectURL(img);
+        image.setAttribute('crossOrigin', 'anonymous'); // Github CORS Policy
+        image.addEventListener('load', () => createImagePieces(image));
+        console.log(image);
+      })
+      .catch((error) => { console.log('takePhoto() error: ', error) });
+  };
+
+  // AR Puzzle ------------------------------------------------------------
   const createImagePieces = image => {
-    const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
     const pieceWidth = image.width / numCol;
     const pieceHeight = image.height / numRow;
@@ -92,6 +145,6 @@
     return randomArray;
   }
 
-  init();
+  window.addEventListener(`load`, () => init());
 
 }
