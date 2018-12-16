@@ -3,9 +3,6 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 const merge = require("webpack-merge");
 const parts = require("./webpack.parts");
-const nodeExternals = require('webpack-node-externals')
-
-//const port = 3000;
 
 const PATHS = {
   src: path.join(__dirname, "src"),
