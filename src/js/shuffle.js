@@ -117,7 +117,9 @@
       }
 
       if (check.every(puzzleCheck)) {
-       console.log('SOLVED!!!!!!!');
+      	console.log('SOLVED!!!!!!!');
+      	const solved = document.querySelector(`.solved`);
+      	solved.style.display = "flex";
       }
 
     }
