@@ -3,13 +3,13 @@
   const markers = document.querySelectorAll(`a-marker`);
 
   const numCol = 3, numRow = 3,
-        puzzlePieces = numCol * numRow,
-        tolerance = 1.9;
+    puzzlePieces = numCol * numRow,
+    tolerance = 1.9;
 
   let imgPieces = new Array(puzzlePieces),
-      puzzle = [...Array(puzzlePieces).keys()].map(String),
-      positionMarkers = [],
-      check = new Array(6);
+    puzzle = [...Array(puzzlePieces).keys()].map(String),
+    positionMarkers = [],
+    check = new Array(6);
 
   let pieces = numCol * numRow - 1;
 
@@ -33,7 +33,7 @@
         imgPieces[8 - pieces] = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
         pieces = pieces - 3;
         if (pieces < 0) {
-          pieces = (puzzlePieces -1) + pieces;
+          pieces = (puzzlePieces - 1) + pieces;
         }
       }
     };
@@ -74,7 +74,9 @@
       }
 
       if (check.every(puzzleCheck)) {
-       console.log('SOLVED!!!!!!!');
+        console.log('SOLVED!!!!!!!');
+        const solved = document.querySelector(`.solved`);
+        solved.style.display = "flex";
       }
 
     }
