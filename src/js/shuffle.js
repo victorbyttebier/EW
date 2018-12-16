@@ -1,22 +1,22 @@
 {
   const image = new Image(),
-        video = document.querySelector('video'),
-        canvas = document.createElement(`canvas`),
-        takePhotoButton = document.querySelector('button#takePhoto');
+    video = document.querySelector('video'),
+    canvas = document.createElement(`canvas`),
+    takePhotoButton = document.querySelector('button#takePhoto');
 
   let constraints, imageCapture, mediaStream;
 
   // Puzzle Vars
   const markers = document.querySelectorAll(`a-marker`),
-        numCol = 3, numRow = 3,
-        puzzlePieces = numCol * numRow,
-        tolerance = 1.9;
+    numCol = 3, numRow = 3,
+    puzzlePieces = numCol * numRow,
+    tolerance = 1.9;
 
   let imgPieces = new Array(puzzlePieces),
-      puzzle = [...Array(puzzlePieces).keys()].map(String),
-      pieces = numCol * numRow - 1,
-      positionMarkers = [],
-      check = new Array(6);
+    puzzle = [...Array(puzzlePieces).keys()].map(String),
+    pieces = numCol * numRow - 1,
+    positionMarkers = [],
+    check = new Array(6);
 
   const init = () => {
     navigator.mediaDevices.enumerateDevices()
@@ -24,8 +24,8 @@
       .then(getStream);
 
     takePhotoButton.addEventListener(`click`, getPicture);
-    //shuffle(puzzle);
-    //setInterval(() => checkDistance(), 1000);
+    shuffle(puzzle);
+    setInterval(() => checkDistance(), 1000);
   }
 
   // Camera ---------------------------------------------------------------
@@ -75,7 +75,7 @@
         imgPieces[8 - pieces] = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
         pieces = pieces - 3;
         if (pieces < 0) {
-          pieces = (puzzlePieces -1) + pieces;
+          pieces = (puzzlePieces - 1) + pieces;
         }
       }
     };
@@ -116,7 +116,9 @@
       }
 
       if (check.every(puzzleCheck)) {
-       console.log('SOLVED!!!!!!!');
+        console.log('SOLVED!!!!!!!');
+        const solved = document.querySelector(`.solved`);
+        solved.style.display = "flex";
       }
 
     }
