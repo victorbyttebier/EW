@@ -8,6 +8,16 @@ html {
   box-sizing: inherit;
 }
 
-.hidden {
-  display: none;
+#takePhoto { /* stylelint-disable-line */
+  z-index: 300;
+  position: absolute;
+  bottom: 3rem;
+  left: 50vw;
+  color: white;
+  font-size: 2rem;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 25px;
+
+  background-color: blue;
 }

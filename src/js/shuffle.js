@@ -1,10 +1,8 @@
 {
   const image = new Image(),
-        video = document.querySelector('video'),
-        canvas = document.createElement(`canvas`),
         takePhotoButton = document.querySelector('button#takePhoto');
 
-  let constraints, imageCapture, mediaStream;
+  let constraints, imageCapture, mediaStream, video;
 
   // Puzzle Vars
   const markers = document.querySelectorAll(`a-marker`),
@@ -19,13 +17,12 @@
       check = new Array(6);
 
   const init = () => {
+    video = document.querySelector(`video`);
     navigator.mediaDevices.enumerateDevices()
       .catch(error => console.log('enumerateDevices() error: ', error))
       .then(getStream);
 
     takePhotoButton.addEventListener(`click`, getPicture);
-    //shuffle(puzzle);
-    //setInterval(() => checkDistance(), 1000);
   }
 
   // Camera ---------------------------------------------------------------
@@ -35,7 +32,10 @@
     }
 
     constraints = {
-      video: true
+      video: {
+        width: 720,
+        height: 720,
+      }
     };
 
     navigator.mediaDevices.getUserMedia(constraints)
@@ -48,7 +48,6 @@
   const gotStream = stream => {
     mediaStream = stream;
     video.srcObject = stream;
-    video.classList.remove('hidden');
     imageCapture = new ImageCapture(stream.getVideoTracks()[0]);
   };
 
@@ -58,13 +57,15 @@
         image.src = URL.createObjectURL(img);
         image.setAttribute('crossOrigin', 'anonymous'); // Github CORS Policy
         image.addEventListener('load', () => createImagePieces(image));
-        console.log(image);
+        // shuffle(puzzle);
+        setInterval(() => checkDistance(), 1000);
       })
       .catch((error) => { console.log('takePhoto() error: ', error) });
   };
 
   // AR Puzzle ------------------------------------------------------------
   const createImagePieces = image => {
+    const canvas = document.createElement(`canvas`);
     const ctx = canvas.getContext('2d');
     const pieceWidth = image.width / numCol;
     const pieceHeight = image.height / numRow;
@@ -132,6 +133,6 @@
     return randomArray;
   }
 
-  window.addEventListener(`load`, () => init());
+  window.addEventListener(`load`, () => setTimeout(() => init(), 1000));
 
 }
