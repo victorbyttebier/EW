@@ -52,13 +52,15 @@
   };
 
   const getPicture = () => {
+    //shuffle(puzzle);
     imageCapture.takePhoto()
       .then((img) => {
         image.src = URL.createObjectURL(img);
         image.setAttribute('crossOrigin', 'anonymous'); // Github CORS Policy
         image.addEventListener('load', () => createImagePieces(image));
-        shuffle(puzzle);
         setInterval(() => checkDistance(), 1000);
+        console.log(puzzle);
+
       })
       .catch((error) => { console.log('takePhoto() error: ', error) });
   };
@@ -74,6 +76,7 @@
       for (let y = 0; y < numRow; ++y) {
         ctx.drawImage(image, x * pieceWidth, y * pieceHeight, pieceWidth, pieceHeight, 0, 0, canvas.width, canvas.height);
         imgPieces[8 - pieces] = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+        console.log(imgPieces);
         pieces = pieces - 3;
         if (pieces < 0) {
           pieces = (puzzlePieces - 1) + pieces;
@@ -116,6 +119,13 @@
         }
       }
 
+      console.log('position x', positionMarkers[puzzle[1]].position.x - positionMarkers[puzzle[0]].position.x);
+      console.log('position x2', positionMarkers[puzzle[2]].position.x - positionMarkers[puzzle[1]].position.x);
+
+      console.log('position y', positionMarkers[puzzle[1]].position.y - positionMarkers[puzzle[0]].position.y);
+      console.log('position y2', positionMarkers[puzzle[2]].position.y - positionMarkers[puzzle[1]].position.y);
+
+
       if (check.every(puzzleCheck)) {
         console.log('SOLVED!!!!!!!');
         const solved = document.querySelector(`.solved`);
@@ -132,6 +142,7 @@
       const j = Math.floor(Math.random() * (i + 1));
       [randomArray[i], randomArray[j]] = [randomArray[j], randomArray[i]];
     }
+    console.log(randomArray);
     return randomArray;
   }
 
