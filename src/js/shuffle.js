@@ -1,20 +1,20 @@
 {
   const image = new Image(),
-        takePhotoButton = document.querySelector('button#takePhoto');
+    takePhotoButton = document.querySelector('.takePhoto');
 
   let constraints, imageCapture, mediaStream, video;
 
   // Puzzle Vars
   const markers = document.querySelectorAll(`a-marker`),
-        numCol = 3, numRow = 3,
-        puzzlePieces = numCol * numRow,
-        tolerance = 1.9;
+    numCol = 3, numRow = 3,
+    puzzlePieces = numCol * numRow,
+    tolerance = 1.9;
 
   let imgPieces = new Array(puzzlePieces),
-      puzzle = [...Array(puzzlePieces).keys()].map(String),
-      pieces = numCol * numRow - 1,
-      positionMarkers = [],
-      check = new Array(6);
+    puzzle = [...Array(puzzlePieces).keys()].map(String),
+    pieces = numCol * numRow - 1,
+    positionMarkers = [],
+    check = new Array(6);
 
   const init = () => {
     video = document.querySelector(`video`);
@@ -57,7 +57,7 @@
         image.src = URL.createObjectURL(img);
         image.setAttribute('crossOrigin', 'anonymous'); // Github CORS Policy
         image.addEventListener('load', () => createImagePieces(image));
-        // shuffle(puzzle);
+        shuffle(puzzle);
         setInterval(() => checkDistance(), 1000);
       })
       .catch((error) => { console.log('takePhoto() error: ', error) });
@@ -76,7 +76,7 @@
         imgPieces[8 - pieces] = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
         pieces = pieces - 3;
         if (pieces < 0) {
-          pieces = (puzzlePieces -1) + pieces;
+          pieces = (puzzlePieces - 1) + pieces;
         }
       }
     };
@@ -117,9 +117,9 @@
       }
 
       if (check.every(puzzleCheck)) {
-      	console.log('SOLVED!!!!!!!');
-      	const solved = document.querySelector(`.solved`);
-      	solved.style.display = "flex";
+        console.log('SOLVED!!!!!!!');
+        const solved = document.querySelector(`.solved`);
+        solved.style.display = "flex";
       }
 
     }

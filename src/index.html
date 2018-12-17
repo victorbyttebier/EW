@@ -9,24 +9,25 @@
 	<script src="js/build/aframe.min.js"></script>
 	<script src="js/build/aframe-ar.js"></script>
 </head>
+
 <body>
-   <button id="takePhoto">Take Photo</button>
-	 <a-scene embedded arjs='trackingMethod: best; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
-		 <a-marker type='barcode' value='1'></a-marker>
-		 <a-marker type='barcode' value='2'></a-marker>
-		 <a-marker type='barcode' value='3'></a-marker>
-		 <a-marker type='barcode' value='5'></a-marker>
-		 <a-marker type='barcode' value='6'></a-marker>
-		 <a-marker type='barcode' value='7'></a-marker>
-		 <a-marker type='barcode' value='9'></a-marker>
-		 <a-marker type='barcode' value='10'></a-marker>
-		 <a-marker type='barcode' value='11'></a-marker>
-		 <a-marker-camera preset='hiro'></a-marker-camera>
-	 </a-scene>
+	<button class="takePhoto">Take Photo</button>
+	<a-scene embedded arjs='trackingMethod: best; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
+		<a-marker type='barcode' value='1'></a-marker>
+		<a-marker type='barcode' value='2'></a-marker>
+		<a-marker type='barcode' value='3'></a-marker>
+		<a-marker type='barcode' value='5'></a-marker>
+		<a-marker type='barcode' value='6'></a-marker>
+		<a-marker type='barcode' value='7'></a-marker>
+		<a-marker type='barcode' value='9'></a-marker>
+		<a-marker type='barcode' value='10'></a-marker>
+		<a-marker type='barcode' value='11'></a-marker>
+		<a-marker-camera preset='hiro'></a-marker-camera>
+	</a-scene>
 	<div class="solved">
-		<a class="restart" href="./index.html">Herstarten</a>
+		<a class="restart" href="./index.html">Restart</a>
 	</div>
-	<a href="./assets/patterns.jpg" download class="download">Download puzzelstukken</a>
+	<a href="./assets/patterns.jpg" download class="download">Download Puzzle</a>
 </body>
 
 </html>

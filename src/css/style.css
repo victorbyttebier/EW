@@ -2,32 +2,40 @@ html {
   box-sizing: border;
   font-size: 62.5%;
   height: 100%;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 *, *:before, *:after { /* stylelint-disable-line */
   box-sizing: inherit;
 }
 
-#takePhoto { /* stylelint-disable-line */
+body {
+  display: flex;
+  justify-content: center;
+}
+
+.takePhoto { /* stylelint-disable-line */
   z-index: 300;
   position: absolute;
-  bottom: 3rem;
-  left: 50vw;
+  bottom: 6rem;
   color: white;
   font-size: 2rem;
-  padding: 1rem 2rem;
+  padding: .5rem 2rem;
   border: none;
   border-radius: 25px;
-
   background-color: blue;
 }
 
 .download {
-  background-color: #74CEF5;
+  position: absolute;
+  background-color: blue;
   text-decoration: none;
   font-size: 2rem;
   color: white;
-  padding: 1rem;
+  padding: .5rem 2rem;
+  border-radius: 25px;
+  bottom: 2rem;
+
 }
 
 .solved {
